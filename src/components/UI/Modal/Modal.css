@@ -1,0 +1,48 @@
+.modal{
+    z-index:500;
+    overflow: scroll;
+    padding:20px 5px 20px 5px;
+    background-color:rgba(0, 0, 0, 0.966);
+    width:90%;
+    
+    box-shadow: 0px 0px 20px rgb(185, 76, 2);
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    border-radius: 20px;
+    animation: show 0.5s;
+}
+.close{
+    position: absolute;
+    top:0px;
+    right:0px;
+    outline: none;
+    background:none;
+    color: rgb(247, 82, 31);
+    padding: 10px;
+    margin-right:10px;
+    text-shadow: 0px 0px 3px #aaa;
+    font-size: 22px;
+    cursor: pointer;
+}
+@keyframes show {
+    from{
+        opacity: 0;
+       transform: scale(0.5) translate(-50%,-50%);
+       
+    }
+    to{
+        opacity: 1;
+        transform: scale(1) translate(-50%,-50%);
+        
+    }
+}
+@media (min-width:600px ) and (min-height:400px){
+    .modal{
+        width:70%;
+        height:70vh;
+        overflow: auto;
+    }
+
+}

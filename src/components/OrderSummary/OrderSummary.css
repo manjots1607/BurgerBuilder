@@ -1,0 +1,39 @@
+.btn{
+    padding:10px;
+    font-size: 20px;
+    margin-left:6px;
+    background-color: rgba(31, 27, 27, 0.897);
+    border-radius: 13px;
+    color:white;
+    cursor: pointer;
+}
+@media (min-width:700px) and (min-height:450px){
+    .container{
+        position:absolute;
+        
+        left:50%;
+        transform: translate(-50%,0);
+    }
+}
+
+
+.container h3{
+    font-size: 24px;
+}
+.success{
+    border:2px solid rgb(14, 160, 14);
+    color: rgb(14, 160, 14);
+}
+.failure{
+    border:2px solid rgb(255, 17, 0);
+    color: rgb(255, 108, 108);
+}
+.success:hover{
+    background: linear-gradient(#228c1d, #91ce50); 
+    color:black;
+}
+.failure:hover{
+    background: rgb(255, 17, 0);
+    color:white;
+}
+

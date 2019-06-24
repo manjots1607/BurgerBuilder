@@ -1,0 +1,42 @@
+.burger{
+    width: 100%;
+    height:400px;
+    margin: auto;
+    margin-top:75px;
+    text-align: center;
+    overflow-y: scroll;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+
+@media (min-width:1000px) and (min-height:694px){
+    .burger{
+        width:700px;
+        height: 600px;
+    }
+    
+    
+}
+
+@media (min-width:500px) and (min-height:400px){
+    .burger{
+        width:450px;
+        height: 400px;
+    }
+    .burger::-webkit-scrollbar {
+        background:Black;
+        width: 10px;
+        border-radius: 10px;
+    }
+    .burger::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px grey; 
+      border-radius: 10px;
+    }
+    .burger::-webkit-scrollbar-thumb {
+        background: rgba(204, 67, 3, 0.897); 
+        box-shadow:0 4px 2px rgba(128, 128, 128, 0.658); 
+        border-radius: 10px;
+      }
+}
+

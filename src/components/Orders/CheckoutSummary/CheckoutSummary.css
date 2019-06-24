@@ -1,0 +1,17 @@
+.container{
+    width:90%;
+    margin:auto;
+    text-align: center;
+    color:white;
+    margin:55px auto 45px auto;
+
+}
+.container h3{
+    color:#f1f1f1;
+    font-weight: 200;
+}
+@media (min-width:700px) and (min-height:400px){
+    .container{
+        width:70%;
+    }
+}

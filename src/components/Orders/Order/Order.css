@@ -1,0 +1,22 @@
+.ordContainer{
+    box-shadow: 0px 0px 7px rgb(185, 51, 3);
+    width:90%;
+    background-color: black;
+    margin-bottom: 15px;
+    padding:10px;
+    border-left:5px solid orangered;
+}
+.ing{
+    display: inline-block;
+    padding: 8px;
+    border-radius: 15px;
+    margin-left:5px;
+    background-color: rgb(18, 18, 18);
+
+}
+.detail{
+    text-align: left;
+}
+.detail div{
+    margin-bottom: 8px;
+}

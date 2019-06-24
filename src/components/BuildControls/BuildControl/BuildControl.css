@@ -1,0 +1,45 @@
+.buildControl{
+    display: flex;
+    flex-direction: row;
+    padding:10px 0px 10px 0px;
+    align-content: stretch;
+    
+    
+}
+.name,.qty{
+    padding-top: 9px;
+   
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+.name{
+    text-align: center;
+    flex-basis:60%;
+}
+.Add,.Minus,.qty{
+    
+    flex-grow:1;
+}
+.Add button , .Minus button{
+    outline: none;
+    
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px #180600;
+    padding: 7px 15px 7px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+}   
+.Add button:hover , .Minus button:hover{
+    transform: scale(1.2);
+    box-shadow: 0px 0px 8px 4px #180600;
+}
+.Add button{
+    
+    
+    background:linear-gradient(#228c1d, #91ce50);
+}
