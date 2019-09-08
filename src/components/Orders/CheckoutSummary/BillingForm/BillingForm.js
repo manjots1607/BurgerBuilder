@@ -2,19 +2,20 @@ import React,{Component} from 'react';
 import Classes from './BillingForm.css';
 import Axios from '../../../../AxiosInst';
 import Spinner from '../../../UI/Spinner/Spinner';
+import {connect} from 'react-redux';
 
 class BillingForm extends Component{
     state={
         billingInfo:{
-            name:null,
+            name:"",
             address:{
-                hNo:null,
-                streetAdd:null,
-                city:null,
-                country:null
+                hNo:"",
+                streetAdd:"",
+                city:"",
+                country:""
             },
-            mobNo:null,
-            email:null
+            mobNo:"",
+            email:""
         },
         showSpinner:false
     };
@@ -40,6 +41,7 @@ class BillingForm extends Component{
         this.setState({
             showSpinner:true
         });
+        
         
          Axios.post("/orders.json",{
             ingredients:this.props.ingredients,
@@ -99,4 +101,8 @@ class BillingForm extends Component{
     }
 }
 
-export default BillingForm;    
+const mapStateToProps=state=>({
+    ingredients:state.burgIngredients,
+    price:state.price
+});
+export default connect(mapStateToProps)(BillingForm);    
