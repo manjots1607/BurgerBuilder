@@ -3,6 +3,8 @@ import Classes from './BillingForm.css';
 import Axios from '../../../../AxiosInst';
 import Spinner from '../../../UI/Spinner/Spinner';
 import {connect} from 'react-redux';
+import withErrorHandler from "../../../../hoc/withErrorHandler/withErrorHandler";
+import * as OrderActions from "../../../../store/actions/index";
 
 class BillingForm extends Component{
     state={
@@ -16,8 +18,7 @@ class BillingForm extends Component{
             },
             mobNo:"",
             email:""
-        },
-        showSpinner:false
+        }
     };
     inputChangeHandler=(e)=>{
         let prevBilling={...this.state.billingInfo};
@@ -38,12 +39,9 @@ class BillingForm extends Component{
     }
     orderHandler=(e)=>{
         e.preventDefault();
-        this.setState({
-            showSpinner:true
-        });
         
         
-         Axios.post("/orders.json",{
+        const orderData={
             ingredients:this.props.ingredients,
             price:this.props.price,
             customer:{
@@ -57,26 +55,10 @@ class BillingForm extends Component{
                 email:this.state.billingInfo.email,
                 mobNo:this.state.billingInfo.mobNo
             },
-            deliveryMethod:"Fastest"
-        })
-        .then(res=>{
-            console.log(res.data);
-            
-            this.setState({showSpinner:false});
-            this.props.history.push("/");
-            
-           
-            
-            
-        })
-        .catch(err=>{
-            console.log(err);
-            this.setState({showSpinner:false});
-           
-           
-            
-        });
-
+            deliveryMethod:"Fastest",
+            userId:this.props.userID
+        };
+         this.props.onPurchaseStartHandler(orderData,this.props.token);
     }
 
     render(){
@@ -84,7 +66,7 @@ class BillingForm extends Component{
         return(
             <div className={Classes.container}>
             <h2>Enter Billing information</h2>
-            {this.state.showSpinner?<Spinner />:
+            {this.props.showSpinner?<Spinner />:
             <form className={Classes.form} onSubmit={this.orderHandler}>
                 <input type="text" name="name" placeholder="Enter your Name" className="input" value={this.state.billingInfo.name} onChange={this.inputChangeHandler} ></input>
                 <input type="text" name="hNo" placeholder="Enter House/Appartment No. " value={this.state.billingInfo.address.hNo} onChange={this.addressChangeHandler} />
@@ -102,7 +84,13 @@ class BillingForm extends Component{
 }
 
 const mapStateToProps=state=>({
-    ingredients:state.burgIngredients,
-    price:state.price
+    ingredients:state.burgerBuilder.burgIngredients,
+    price:state.burgerBuilder.price,
+    showSpinner:state.order.loading,
+    token:state.auth.token,
+    userID:state.auth.localId
 });
-export default connect(mapStateToProps)(BillingForm);    
+const mapDispatchToProps=dispatch=>({
+    onPurchaseStartHandler:(orderData,token)=>dispatch(OrderActions.purchaseBurger(orderData,token))
+});
+export default connect(mapStateToProps,mapDispatchToProps)( withErrorHandler(BillingForm,Axios));    

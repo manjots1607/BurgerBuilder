@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import CheckoutSummary from '../../components/Orders/CheckoutSummary/CheckoutSummary';
-import {Route} from 'react-router-dom';
+import {Route,Redirect} from 'react-router-dom';
 import BillingForm from '../../components/Orders/CheckoutSummary/BillingForm/BillingForm';
 import {connect } from 'react-redux';
 
@@ -28,21 +28,27 @@ class Checkout extends Component{
         this.props.history.goBack();
     };
     render(){
-        return(
+        var summary=(<Redirect to="/" />);
+        var redirectAfterPurchase= this.props.purchased ? <Redirect to="/"/> : null;
+        if(this.props.ings){
+            summary= (
             <React.Fragment>
+                {redirectAfterPurchase}
                 <CheckoutSummary ingredients={this.props.ings} price={this.props.price}
                 continueCheckout={this.continueHandler} cancelCheckout={this.cancelHandler} />
                 <Route path={this.props.match.path + "/billing-data"} 
                     component={BillingForm}
                  />
-            </React.Fragment>    
-        );
+            </React.Fragment>  );
+        }
+        return summary;
     }
 };
 
 const mapStateToProps=state=>({
-    ings:state.burgIngredients,
-    price:state.price
+    ings:state.burgerBuilder.burgIngredients,
+    price:state.burgerBuilder.price,
+    purchased:state.order.puchased
 });
 
 export default connect(mapStateToProps)(Checkout);

@@ -8,6 +8,7 @@ import Axios from '../../AxiosInst';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
+import * as burgerBuilderActions from "../../store/actions/index";
 
 
 
@@ -50,8 +51,12 @@ class burgerBuilder extends Component{
             
         // });
         
-        
-        this.props.history.push("/checkout");
+        if(this.props.isAuthenticated){
+            this.props.history.push("/checkout");
+        }else{
+            this.props.updateAuthPath("/checkout");
+            this.props.history.push("/auth");
+        }
     }
     showOrderHandler=()=>{
         this.setState({
@@ -62,6 +67,10 @@ class burgerBuilder extends Component{
         this.setState({
             showOrder:false
         })
+    }
+   
+    componentWillMount(){
+        this.props.initIngredientsHandler();
     }
     componentDidUpdate(prevProps){
         if(this.props.ings!==prevProps.ings){
@@ -99,8 +108,7 @@ class burgerBuilder extends Component{
                     </Modal>: 
                     null
                 }
-                
-                <Burger
+                {this.props.ings ? <React.Fragment><Burger
                     ingredients={this.props.ings}
                 />
                 <BuildControls 
@@ -110,19 +118,27 @@ class burgerBuilder extends Component{
                     price={this.props.totalPrice}
                     purchasable={this.state.purchasable}
                     showOrder={this.showOrderHandler}
-                />
-                
+                    isAuth={this.props.isAuthenticated}
+                /></React.Fragment>: null}
+                {this.props.err? <h2> Hey Ingredients cant be loaded because there is error </h2>:null}
+                       
             </Aux>
         )
     }
 }
 const mapStateToProps=state=>({
-    ings:state.burgIngredients,
-    totalPrice:state.price
+    ings:state.burgerBuilder.burgIngredients,
+    totalPrice:state.burgerBuilder.price,
+    err:state.burgerBuilder.error,
+    isAuthenticated : state.auth.token!==null
 });
 const mapDispatchToProps=dispatch=>({
-    onAddHandler:(ingName)=>dispatch({type:'ADD_HANDLER',ingredientName:ingName}),
-    onRemoveHandler:(ingName)=>dispatch({type:'REMOVE_HANDLER',ingredientName:ingName})
+    onAddHandler:(ingName)=>dispatch(burgerBuilderActions.addHandler(ingName)),
+    onRemoveHandler:(ingName)=>dispatch(burgerBuilderActions.removeHandler(ingName)),
+    initIngredientsHandler:()=>dispatch(burgerBuilderActions.initIngredients()),
+    onInitPuchase:()=>dispatch(burgerBuilderActions.initPurchase()),
+    updateAuthPath:(path)=>dispatch(burgerBuilderActions.setAuthRedirectPath(path))
+
 });
 
 

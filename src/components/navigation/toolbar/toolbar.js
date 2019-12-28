@@ -14,9 +14,9 @@ const toolbar=(props)=>{
                 <div className={Classes.logo}>Logo</div>
                 <div onClick={props.toggleSideNav} className={Classes.menuContainer}><div className={Classes.menu}></div></div>
                 
-                <Navbar />
+                <Navbar isAuthenticated={props.isAuth} />
             </div>
-            <MobNavbar toggle={props.toggle} close={props.toggleSideNav} />
+            <MobNavbar isAuthenticated={props.isAuth} toggle={props.toggle} close={props.toggleSideNav} />
             
         </header>
     )
